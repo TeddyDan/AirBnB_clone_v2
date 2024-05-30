@@ -1,37 +1,45 @@
 #!/usr/bin/python3
-
-
-"""utilizing Flask for Web app frame work"""
-from flask import Flask, escape
+"""0x04. AirBnB clone - Web framework, task 3. Python is cool!
+"""
+from flask import Flask
+from os import environ
 
 app = Flask(__name__)
-app.url_map.strict_slashes = False
+environ['FLASK_ENV'] = 'development'
 
 
-@app.route("/")
-def home():
-    """method that defines '/' route for Flask web application"""
-    return "Hello HBNB!"
+@app.route('/', strict_slashes=False)
+def index():
+    """Test method to output simple greeting on localhost port 5000,
+    `/` path.
+    """
+    return 'Hello HBNB!'
 
 
-@app.route("/hbnb")
+@app.route('/hbnb', strict_slashes=False)
 def hbnb():
-    """method that defines '/hbnb' route"""
-    return "HBNB"
+    """Test method to output simple message on localhost port 5000,
+    `/hbnb` path.
+    """
+    return 'HBNB'
 
 
-@app.route('/c/<text>')
-def show_text(text):
-    """method that defines '/c/' route that uses a variable"""
-    return 'C {}'.format(text.replace('_', ' '))
+@app.route('/c/<text>', strict_slashes=False)
+def c_subpath(text):
+    """Test method to output simple message on localhost port 5000,
+    `/c/` path, converting subpaths into message text.
+    """
+    return ' '.join(['C', text.replace('_', ' ')])
 
 
-@app.route('/python/')
-@app.route('/python/<text>')
-def show_text2(text="is cool"):
-    """method that defines '/python/' route that uses a variable"""
-    return 'Python {}'.format(text.replace('_', ' '))
+@app.route('/python/', strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
+def python_subpath(text='is cool'):
+    """Test method to output simple message on localhost port 5000,
+    `/python/` path, converting subpaths into message text.
+    """
+    return ' '.join(['Python', text.replace('_', ' ')])
 
 
-if __name__ == "__main__":
-    app.run(host="localhost", port=5000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port='5000')
